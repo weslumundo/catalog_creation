@@ -5,6 +5,7 @@ from astropy.wcs import WCS
 from astropy.io import fits
 from astropy.convolution import Gaussian2DKernel
 from astropy.convolution import convolve
+import sys
 
 fileblue=sys.argv[1]
 filered=sys.argv[2]
