@@ -27,13 +27,14 @@ print('done reprojectin sci')
 tmpblue=fileblue
 #tmplist=tmpblue.split('/')
 #tmpname=tmplist[len(tmplist)-1]
-whtfileblue=tmpname.replace('_sci.fits','_wht.fits')
+#whtfileblue=tmpname.replace('_sci.fits','_wht.fits')
+whtfileblue=tmpblue.replace('_sci.fits','_wht.fits')
 
 tmpred=filered
 #tmprlist=tmpred.split('/')
 #tmprname=tmprlist[len(tmprlist)-1]
-whtfilered=tmprname.replace('_sci.fits','_wht.fits')
-
+#whtfilered=tmprname.replace('_sci.fits','_wht.fits')
+whtfilered=tmpred.replace('_sci.fits','_wht.fits')
 
 tmpo=fileout
 tmpolist=tmpo.split('/')
