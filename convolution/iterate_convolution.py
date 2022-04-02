@@ -30,11 +30,14 @@ def conv2Dgauss(fitsfilein,fwhm,i=0,ident='sept21_'):
     tmpname=tmpfile.split('/')
     tmp2=tmpname[len(tmpname)-1]
     filename=tmp2.replace('.fits','')
-    outfile='/home/k689j329/HSTdata/'+filename+'_conv_'+str(ident)+str(i)+'.fits'
+    #should really have some unified global variable for these root names
+    outfile='/home/wes/Astronomy/Data/GoGreen/j020548m5829/ProData/'+filename+'_conv_'+str(ident)+str(i)+'.fits'
+    #why is this here \/
     filenameout=outfile
     fil=pathlib.Path(outfile)
     if fil.exists():
         print('already convolved')
+        #why not just return outfile?
         nameout=outfile
         return nameout
     else:
@@ -42,12 +45,14 @@ def conv2Dgauss(fitsfilein,fwhm,i=0,ident='sept21_'):
         astrconv=convolve(img,kern)
         fits1[0].data=astrconv
         filenameout=outfile
+        #print("Name of file I am writing: ", filenameout)
         fits1.writeto(filenameout)
         return filenameout
     
 # another thing to run an input image through sewpy and produce a catalog
 def makecat(fits2,see=0.195,ps=0):
-    sew=sewpy.SEW(params=["ALPHA_J2000","DELTA_J2000","FWHM_IMAGE","FLUX_APER","X_IMAGE","Y_IMAGE","FLAGS","CLASS_STAR"],config={"DETECT_MINAREA":5, "DETECT_THRESH":1.5,"ANALYSIS_THRESH":1.5,"PHOT_APERTURES":5,"SEEING_FWHM":see,"PIXEL SCALE":ps},sexpath="sextractor")
+    #set up the parameters for sewpy, sexpath is machine dependent
+    sew=sewpy.SEW(params=["ALPHA_J2000","DELTA_J2000","FWHM_IMAGE","FLUX_APER","X_IMAGE","Y_IMAGE","FLAGS","CLASS_STAR"],config={"DETECT_MINAREA":5, "DETECT_THRESH":1.5,"ANALYSIS_THRESH":1.5,"PHOT_APERTURES":5,"SEEING_FWHM":see,"PIXEL SCALE":ps},sexpath="/home/wes/Astronomy/Software/anaconda3/bin/sex")
     outcat=sew(fits2)
     return outcat["table"]
 
