@@ -18,7 +18,7 @@ DETECT_THRESH    2.5            # <sigmas> or <threshold>,<ZP> in mag.arcsec-2
 ANALYSIS_THRESH  1.5            # <sigmas> or <threshold>,<ZP> in mag.arcsec-2
  
 FILTER           Y              # apply filter for detection (Y or N)?
-FILTER_NAME      config/gauss_2.5_5x5.conv   # name of the file containing the filter
+FILTER_NAME      /home/wes/Astronomy/Software/anaconda3/pkgs/astromatic-source-extractor-2.25.0-h4487ae1_0/share/sextractor/gauss_2.5_5x5.conv   # name of the file containing the filter
 
 THRESH_TYPE	RELATIVE	#default is relative; can also be ABSOLUTE 
 DEBLEND_NTHRESH  32             # Number of deblending sub-thresholds
@@ -50,7 +50,7 @@ PIXEL_SCALE      0.1            # size of pixel in arcsec (0=use FITS WCS info)
  
 SEEING_FWHM      0.195       #note, this is the seeing for j2106_f105w # stellar FWHM in arcsec
 #SEEING_FWHM	0.204	#note, this is the seeing for j2106_b2r
-STARNNW_NAME    config/default.nnw    # Neural-Network_Weight table filename
+STARNNW_NAME    /home/wes/Astronomy/Software/anaconda3/pkgs/astromatic-source-extractor-2.25.0-h4487ae1_0/share/sextractor/default.nnw    # Neural-Network_Weight table filename
  
 #------------------------------ Background -----------------------------------
  
