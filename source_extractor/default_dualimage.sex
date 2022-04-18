@@ -66,15 +66,15 @@ BACKPHOTO_TYPE   GLOBAL         # can be GLOBAL or LOCAL
 #------------------------------ Weighting -------
 #added by KMJ 1 May 2020
 #WEIGHT_IMAGE	../HSTdata/j160116m0029/j16_f160w_mask.fits	#should be a filename of the appropriate mask
-#WEIGHT_TYPE	MAP_WEIGHT	#can be NONE, BACKGROUND, MAP_RMS, MAP_VAR, or MAP_WEIGHT
+WEIGHT_TYPE	MAP_WEIGHT	#can be NONE, BACKGROUND, MAP_RMS, MAP_VAR, or MAP_WEIGHT
 
 #------------------------------ Check Image ----------------------------------
  
-CHECKIMAGE_TYPE  NONE           # can be NONE, BACKGROUND, BACKGROUND_RMS,
+CHECKIMAGE_TYPE  SEGMENTATION           # can be NONE, BACKGROUND, BACKGROUND_RMS,
                                 # MINIBACKGROUND, MINIBACK_RMS, -BACKGROUND,
                                 # FILTERED, OBJECTS, -OBJECTS, SEGMENTATION,
                                 # or APERTURES
-CHECKIMAGE_NAME       # Filename for the check-image
+CHECKIMAGE_NAME  output.fits     # Filename for the check-image
 
  
 #--------------------- Memory (change with caution!) -------------------------

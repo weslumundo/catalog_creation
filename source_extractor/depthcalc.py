@@ -73,28 +73,28 @@ def rmscalc(fits_sci,fits_mask,fits_seg,apertures=[0,1],pixscale=0.1):
 ####Labbe03 plot setup
 #take full image (hdusci) and select only those pixels that are:
 #data (from hdumask) and that are not sources (from segdata)
-	####### pull out the data
-	hdusci=fits.open(fits_sci)
-	hdumask=fits.open(fits_mask)
-	hduseg=fits.open(fits_seg)
-	apers=np.array(apertures)
-	scidata=hdusci[0].data
-	maskdata=hdumask[0].data
-	segdata=hduseg[0].data
-	
-    ####### select 'valid' points that are not parts of objects or off-image
-	validpts=np.where((segdata<1) & (maskdata==1))
-	scivalid=scidata[validpts]
-
+    ####### pull out the data
+    hdusci=fits.open(fits_sci)
+    hdumask=fits.open(fits_mask)
+    hduseg=fits.open(fits_seg)
+    apers=np.array(apertures)
+    scidata=hdusci[0].data
+    maskdata=hdumask[0].data
+    segdata=hduseg[0].data
     
+    ####### select 'valid' points that are not parts of objects or off-image
+    validpts=np.where((segdata>=1) & (maskdata>=1))
+    print(validpts)
+    scivalid=scidata[validpts]
+       
     #####actual calculation
-	rmss=np.std(scivalid)
-	rmsactual=np.sqrt(np.mean(scivalid**2.0))
-	print('STDEV of all "valid" pixels in scidata:',rmss)
-	print('rms actual:',rmsactual)
-	linearsize=0.5*np.array(apers)/pixscale 
-	#times 1/2 for 'radius' rather than 'diameter' linear size
-	#is my linear size correct? N = sqrt(Area) ~ radius. above is radius in pixels, so, should be.
-	return rmss,linearsize
+    rmss=np.std(scivalid)
+    rmsactual=np.sqrt(np.mean(scivalid**2.0))
+    print('STDEV of all "valid" pixels in scidata:',rmss)
+    print('rms actual:',rmsactual)
+    linearsize=0.5*np.array(apers)/pixscale 
+    #times 1/2 for 'radius' rather than 'diameter' linear size
+    #is my linear size correct? N = sqrt(Area) ~ radius. above is radius in pixels, so, should be.
+    return rmss,linearsize
 
 
