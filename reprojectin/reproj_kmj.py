@@ -34,8 +34,15 @@ print("Finished reproject_exact")
 #3. use this new header as the one we write to the file.  This preserves all of the filter-specific
 #information but includes the right header
 #We want to replace the following header keywords: WCSAXES, CRPIX1, CRPIX2, CRVAL1, CRVAL2, CTYPE1, CTYPE2, ORIENTAT, VAFACTOR, CD1_1, CD1_2, CD2_1, CD2_2
-#for example, hrp[0].header['CD1_1'] contains the value for that header item 
-fits.writeto(fileout, array2, hrp[0].header, overwrite=True)
+#for example, hrp[0].header['CD1_1'] contains the value for that header item
+#copy the header
+bucket=hop[0].header
+#These are the columns to change
+toChange=['WCSAXES', 'CRPIX1', 'CRPIX2', 'CRVAL1', 'CRVAL2', 'CTYPE1', 'CTYPE2', 'ORIENTAT', 'VAFACTOR', 'CD1_1', 'CD1_2', 'CD2_1', 'CD2_2']
+for i in toChange:
+    bucket[i]=hrp[0].header[i]
+
+fits.writeto(fileout, array2, bucket, overwrite=True)
 print('done reprojectin sci')
 
 
@@ -63,5 +70,9 @@ print("Opening a file")
 print(whtfilered)
 wr=fits.open(whtfilered)
 whtarray2,footprintwht=reproject_exact(wb,wr[0].header)
+#copy the blue header and overwrite some of the red header values onto it.
+whtbucket=wb[0].header
+for i in toChange:
+    whtbucket[i]=wr[0].header[i]
 fits.writeto(outwht,whtarray2,wr[0].header,overwrite=True)
 print('done reprojectin wht')
