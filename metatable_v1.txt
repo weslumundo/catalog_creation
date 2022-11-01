@@ -1,3 +1,4 @@
+#clustname	DBID	RA	DEC	zclust	exptime_F606W	exptime_F814W	exptime_F105W	exptime_F140W	exptime_F160W	depth_5sig_F606W	depth_5sig_F814W	depth_5sig_F105W	depth_5sig_F140W	depth_5sig_F160W	targband	rms_targband	c2_targband	c3_targband	refband	rms_refband	c2_refband	c3_refband
 ## Meta-table for Catalog Creation containing properties of the 5 relevant HST archival cluster data
 #the editable version is also online:  shorturl.at/pIJ34
 # A: the astronomical name of the cluster
