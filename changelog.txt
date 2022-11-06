@@ -1,6 +1,6 @@
 Changelog entries should be formatted as follows:
 
-date(DD/MM/YY) -- contributor name
+date of commit(MM/DD/YY) -- contributor name
 ADDED
     - entry
     - entry
