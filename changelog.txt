@@ -1,0 +1,24 @@
+Changelog entries should be formatted as follows:
+
+date(DD/MM/YY) -- contributor name
+ADDED
+    - entry
+    - entry
+    - entry
+
+CHANGED
+    - entry
+    - entry
+    - entry
+
+REMOVED
+    - entry
+    - entry
+    - entry
+
+If no changes happened in a certain section, (e.g. nothing was removed,)
+you can leave that section out. Changelog should have the most recent 
+entry at the top. All listed changes should include the name of the file
+where the change was made.
+
+########## BEGIN CHANGELOG ##########
