@@ -22,19 +22,30 @@ filered=sys.argv[2]   #long wavelength image - change to "reference", e.g. filer
 fileout=sys.argv[3]    #output image
 print("Opening a file")
 print(filered)
+#GHR - hrp and hop are the fits images for the red (hrp) and blue
+#(hop) images.  As FITS images they can (and do in this case) have
+#multiple extensions.  They also have a header and data component.
+#They should be renamed to imref (hrp) and imtarg (hop).
 hrp=fits.open(filered)
 print("Opening a file")
 print(fileblue)
 hop=fits.open(fileblue)
 
 #do the reprojecting
-#This takes the hop image and reprojects it to match the hrp header.  
+#This takes the hop image and reprojects it to match the hrp header.
+
+#GHR array2 contains the output transformed array.  It doesn't have
+#any header info and so is just a list of values on an x-y grid.
+#footprint1 is the footprint of the input array on the output array.
+#See
+#https://reproject.readthedocs.io/en/stable/api/reproject.reproject_exact.html#reproject.reproject_exact
+#for more details.  You can rename them to array_reproj (array2) and
+#footprint_sci (footprint1).
 print("Starting reproject_exact")
 array2,footprint1= reproject_exact(hop,hrp[0].header)
 print("Finished reproject_exact")
 
-#this outputs the reprojected image .  It currently writes the red header to the reprojected file
-#we need to:
+#the previous step outputs the reprojected array, but with no header info.  The code below does the following
 #1. copy the blue header to a new structure
 #2. replace the WCS keywords with those from the red header
 #3. use this new header as the one we write to the file.  This preserves all of the filter-specific
@@ -42,9 +53,15 @@ print("Finished reproject_exact")
 #We want to replace the following header keywords: WCSAXES, CRPIX1, CRPIX2, CRVAL1, CRVAL2, CTYPE1, CTYPE2, ORIENTAT, VAFACTOR, CD1_1, CD1_2, CD2_1, CD2_2
 #for example, hrp[0].header['CD1_1'] contains the value for that header item
 #copy the header
+
+#GHR "bucket" is the original header of the target image (the one that
+#is reprojected).  It should be renamed to targhead
 bucket=hop[0].header
-#These are the columns to change
+#These are the header keywords to change.  They specify the WCS,
+#i.e. the translation of pixel coordinates to RA-DEC
 toChange=['WCSAXES', 'CRPIX1', 'CRPIX2', 'CRVAL1', 'CRVAL2', 'CTYPE1', 'CTYPE2', 'ORIENTAT', 'VAFACTOR', 'CD1_1', 'CD1_2', 'CD2_1', 'CD2_2']
+#GHR goes through every header keyword above and replaces the old
+#target value with the reference value that we transformed it to
 for i in toChange:
     bucket[i]=hrp[0].header[i]
 
