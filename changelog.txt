@@ -22,3 +22,10 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+
+(11/14/2022) -- Wesley
+ADDED
+	-quickmaskv2.py
+	-maskitextrav2.py
+	-singleClusterError.py
+	-default_objsub_norm.sex(copy)
