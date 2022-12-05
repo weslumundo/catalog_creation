@@ -22,6 +22,10 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(12/04/2022) -- Wesley
+CHANGED
+	-singleClusterError.py outputs c values as a txt
+
 (11/29/2022) -- Del
 ADDED
 	- reproj_exec.py uses class methods established in reproj_kmj.py
