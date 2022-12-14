@@ -1,0 +1,24 @@
+1.Have the science file and the weight file in an empty folder(the folder doesn't have to be empty, just my convention)
+2.Make sure the science file name ends in "_sci.fits" and the weight file ends in "_wht.fits"
+3. Run the code in one of three ways (you probably want way 1)
+Note: pixel scale is the arcsec per pixel of your image
+Way 1:
+python singleClusterError.py SCIENCE_FILE_LOCATION PIXEL_SCALE SOURCEEXTRACTOR_CONFIG_LOCATION
+
+example: python singleClusterError.py Test206/j026_drz_sci.fits 0.1 default_objsub_norm.sex
+
+Way 2: leave off the source extractor config location to use the default "default_objsub_norm.sex"
+python singleClusterError.py SCIENCE_FILE_LOCATION PIXEL_SCALE 
+
+example: python singleClusterError.py Test206/j026_drz_sci.fits 0.1
+
+Way 3: Also leave off the pixel scale to use the default of 0.1
+python singleClusterError.py SCIENCE_FILE_LOCATION
+
+example: python singleClusterError.py Test206/j026_drz_sci.fits
+
+The primary output of all three of these is the FILE_NAME_cvalues.txt
+
+example: j026_drz_cvalues.txt
+
+This file holds three variables (c0,c1,c2) which are the coefficients to a polynomial fit that describes aperture size in pixels on the x axis, and uncertainty in sigma on the y axis
