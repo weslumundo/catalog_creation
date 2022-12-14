@@ -112,6 +112,9 @@ class singleClustorErr:
 
 	def setPixScale(self, scale):
 		self.pixScale = scale
+	
+	def setObjSex(self, name):
+		self.objsubSex = name
 		
 	def startEAA(self):
 		runEAA.run(self.objectSubMaskImageLocation,self.apprFluxName,self.pixScale)
@@ -159,7 +162,14 @@ class singleClustorErr:
 
 myError = singleClustorErr(sys.argv[1])
 #this is where the user has the chance to manually change any of the defaults defined in init 
-myError.setPixScale(0.1)
+if(len(sys.argv)>2):
+	myError.setPixScale(sys.argv[2])
+else:
+	myError.setPixScale(0.1)
+
+if(len(sys.argv)>3):
+	myError.setObjSex(sys.argv[3])
+	
 myError.begin()
 
 	
