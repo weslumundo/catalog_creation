@@ -22,6 +22,11 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+
+(02/02/2023) -- Wesley
+	-singleClusterError.py added header information to txt output
+	-workingDepthSingle.py added graph output for sigma v apper size and flux histagram for each apper size
+
 (12/04/2022) -- Wesley
 CHANGED
 	-singleClusterError.py outputs c values as a txt

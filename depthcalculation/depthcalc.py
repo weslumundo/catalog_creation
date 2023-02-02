@@ -33,7 +33,11 @@ def depth(totfile,photvals):
     abmag_depth=-2.5*np.log10(5.0*stdev_empty)+abmagzpt
     
     return abmag_depth,stdev_empty
-
+    
+def depthFlux(totfile,photvals):    
+	valsin=np.loadtxt(totfile,dtype=float,delimiter='\t',usecols=2,comments='#')
+	return valsin
+	
 ###########the part of the program that calculates the magnitude given a flux
 def magcalc(fluxfile,photvals):
     fluxvalsin=np.loadtxt(fluxfile,dtype=float,delimiter='\t',usecols=0,comments='#')

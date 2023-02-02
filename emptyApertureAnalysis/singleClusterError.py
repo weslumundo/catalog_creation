@@ -69,6 +69,7 @@ class singleClustorErr:
 		self.maskImageLocation = myScienceFileLocation.replace('_sci.fits','_mask.fits')
 		self.segmentationImageLocation = myScienceFileLocation.replace('_sci.fits','_seg.fits')
 		self.outputTxtLocation = myScienceFileLocation.replace('_sci.fits','_apprFlux.txt')
+		self.graphLocation = myScienceFileLocation.replace('_sci.fits','_fig')
 		
 		#we need the name of the cluster for the apprFluxName
 		#split the filename at slashes and use the last piece
@@ -120,6 +121,7 @@ class singleClustorErr:
 		runEAA.run(self.objectSubMaskImageLocation,self.apprFluxName,self.pixScale)
 
 	def generateTxt(self):
+		#TODO: come up with a better solution
 		myCom = "ls $PWD/aperflux/"+self.apprFluxName+"_emptyaperflux_*.dat >"+self.outputTxtName
 		myComRM = "rm " +self.outputBase+self.outputTxtName
 		myCom2 = "mv "+self.outputTxtName+" "+self.outputBase
@@ -128,13 +130,15 @@ class singleClustorErr:
 		temp=os.system(myCom2) 
 		
 	def generateC(self):
-		self.cvalues =  workingDepthSingle.run(self.scienceFileLocation,self.outputTxtLocation,self.pixScale,self.maskImageLocation,self.segmentationImageLocation)
+		self.cvalues =  workingDepthSingle.run(self.scienceFileLocation,self.outputTxtLocation,self.pixScale,self.maskImageLocation,self.segmentationImageLocation,self.graphLocation)
+		
 
 	def begin(self):
 		#This function autoruns the singleClusterErr process
 		self.preEAA()
 		self.startEAA()
 		self.postEAA()
+		print("---Finished---")
 		
 	def preEAA(self):
 		self.generateNormal()		
@@ -147,12 +151,18 @@ class singleClustorErr:
 		self.outputC()
 		
 	def genText(self):
+		#TODO: check for existing data
 		#creates the contents of the cvalue output file
+		mySciFile=fits.open(myError.scienceFileLocation)
+		myHeader=mySciFile[0].header	
 		myOut  = ""
 		myOut += "Name\t"+self.baseName+'\n'
 		myOut += "c0\t"+str(self.cvalues.c0.value)+'\n'
 		myOut += "c1\t"+str(self.cvalues.c1.value)+'\n'
 		myOut += "c2\t"+str(self.cvalues.c2.value)+'\n'
+		myOut += "exptime\t"+str(round(myHeader['EXPTIME']))+'\n'
+		myOut += "cluster\t"+myHeader['TARGNAME']+'\n'
+		myOut += "band\t"+myHeader['FILTER']+'\n'
 		return myOut
 
 	def outputC(self):
@@ -162,15 +172,26 @@ class singleClustorErr:
 
 myError = singleClustorErr(sys.argv[1])
 #this is where the user has the chance to manually change any of the defaults defined in init 
+
+#program expects sciencefile pixscale sexfile in that order
+
+#did user provid pixscale?
 if(len(sys.argv)>2):
 	myError.setPixScale(sys.argv[2])
 else:
+	#if no set default
 	myError.setPixScale(0.1)
 
+#did user provide sexfile?
 if(len(sys.argv)>3):
 	myError.setObjSex(sys.argv[3])
-	
+	#if no default already set elsewhere
+
 myError.begin()
+	
+#TESTING
+#myError.postEAA()
+#myError.scienceFileLocation = 0
 
 	
 		

@@ -28,7 +28,7 @@ import calculatin as calc
 #sciFileLoc = string of location of target science file
 #txtFileLoc = string of location of runEAA output for target scifile
 #myPixScale = pixel scale as an int
-def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc):
+def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc,graphOutputLoc):
 	filenames=np.loadtxt(txtFileLoc,dtype='str')
 	hdu=fits.open(sciFileLoc)
 	hdr=hdu[0].header
@@ -41,19 +41,32 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc):
 	mags=[]
 	sigs=[]
 	
+	
+	count = 0
 	for x in filenames:
 	#    infile='../emptyApertureAnalysis_share/aperflux/'+str(x)
-    		infile=str(x)
-    		mag,sig=depthcalc.depth(infile,holdphots)
-    		mags.append(mag)
-    		sigs.append(sig)
-    		
-    	#skip ploting
-    	#CELL 3
-    	    		
+		infile=str(x)
+		mag,sig=depthcalc.depth(infile,holdphots)
+		mags.append(mag)
+		sigs.append(sig)
+		flux=depthcalc.depthFlux(infile,holdphots)
+		rangeval=max([-min(flux),max(flux)])
+		bins = np.linspace(-rangeval, rangeval, 100)
+		plt.hist(flux, bins, alpha=0.5, label='y')
+		plt.legend(loc='upper right')
+		plt.title('Fluxes in Apperatures of size '+str(aper[count]))
+		count+=1
+		plt.xlabel('Flux (e-/s)')
+		plt.ylabel('Number')
+		plt.savefig(graphOutputLoc+str(count)+".png")
+		plt.clf()
+	
+    	
+    	#calculate the RMS of the original science images
 	rmss,aper1=depthcalc.rmscalc(sciFileLoc,maskFileLoc,segFileLoc,apers,myPixScale)
 	rmsvals=rmss*aper1
-	print('RMS of original sci image, redward',rmss)	
+	print('RMS of sci image',rmss)
+
     	
     	#CELL 4 
 	modelb=models.Polynomial1D(degree=2,c0=0.0)
@@ -62,6 +75,30 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc):
 	best_blue=fitter_poly(modelb,aper,sigs)
 	print('2nd order polynomial for cluster image')
 	print(best_blue)
+    		
+    	#CELL 3
+    	
+    	#generate a sigma v apperature pixle size plot
+	plt.plot(aper1,sigs,'r*',label='STDEV of actual aperture data')
+	plt.plot(aper1,best_blue(aper1),color='y',label='best fit using c values')
+	plt.title('Sigma vs linear size')
+	plt.xlabel('Linear size (pixels)')
+	plt.ylabel('Sigma (e-/s)')
+	plt.legend(loc='upper left')
+	#plt.yscale('log')
+	plt.ylim(bottom=0,top=0.5)
+	#plt.xlim(left=0,right=100)
+	
+	#save fig and return c vals
+	plt.savefig(graphOutputLoc+"_sig.png")
+	#plt.show()
+
+	#clear plot
+	plt.clf()
+
+	#plot histagrams of apperature flux
+
+	#return c vals	
 	return best_blue
     		
     		
