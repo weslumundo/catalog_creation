@@ -14,4 +14,5 @@ OUTPUT (more info needed)
 NOTES
 - needs error handling for bad files/incompatible file types/no wht files found
 - build a flag into method that lets user optionally plot the reference and
-  target side-by-side to check effectiveness 
+  target side-by-side to check effectiveness
+- push file for difference image creation
