@@ -23,10 +23,12 @@ class Reproject:
         array_reproj, footprint_sci = reproject_interp(self._img_targ, self._img_ref[0].header)
         print("Finished reproject_interp.")
         
-        #copies header data to be used in reprojected image
+        #copies header data to be used in reprojected image.
+        #header is copied from target image and only changed WCS values are updated
         targ_head = self._img_targ[0].header
         for item in self._TO_CHANGE:
             targ_head[item] = self._img_ref[0].header[item]
             
+        #writes out reprojected image and updated header    
         fits.writeto(self._file_out, array_reproj, targ_head, overwrite=True)
         print("Reprojection complete!")
