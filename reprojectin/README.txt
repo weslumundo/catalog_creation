@@ -6,11 +6,16 @@ Currently using reproject_interp module.
 
 INPUT
    User inputs the file paths of the reference and target images, as well as
-a name for the generated reprojection. All inputs must be .sci files.
+a name for the generated reprojection. Input files should be a SCI or WHT file.  
+
+   The reprojection is performed using the WCS information in the FITS header and 
+will only be as good as that information.  Therefore high astrometric accuracy
+is required in the FITS header.
 
 OUTPUT (more info needed)
-   Outputs a .sci and .wht file for the generated reprojection.
-
+   Outputs a SCI and WHT file for the generated reprojection.  The output fits files
+have the new header information.
+   
 NOTES
 - needs error handling for bad files/incompatible file types/no wht files found
 - build a flag into method that lets user optionally plot the reference and
