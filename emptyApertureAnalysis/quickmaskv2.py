@@ -13,6 +13,17 @@ no data.  In practice, a generic routine that multiplies two FITS images
 
 INPUT
 
+objsubFileLoc - String
+The location of the object subtracted file produced by SExtractor
+
+maskFileLoc - String
+Location of the mask file produced by maskitextra during generizeNormal from workingDepthSingle
+
+objsubMaskFileLoc - String
+Location where the output should be saved
+
+ow - Boolean
+Should the file be overwritten?
 
 Takes the object subtracted image produced by SExtractor and
 multiplies it by the mask created by maskitextrav2.py.  The mask tells

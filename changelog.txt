@@ -22,6 +22,11 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(02/16/2023) -- Wesley
+	-singleClusterError.py updated Documentation
+	-maskitextra.py updated Documentation
+	-quickmaskv2.py updated Documentation
+	-workingDepthSingle.py added gaussian data to graphical output, updated Documentation
 
 (02/15/2023) -- Del
 ADDED

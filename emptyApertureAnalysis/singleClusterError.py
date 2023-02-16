@@ -14,13 +14,13 @@
 # we will use kmj's naming assumptions to find the weight file
 
 #replace('_sci.fits','_wht.fits')
-#NAMING ASSUMPTIONS:
+#ASSUMPTIONS:
 #Science Files end in '_sci.fits'
 #Weight Files are in the same directory and have the same exact name except for the ending
 #Weight Files should end in '_wht.fits'
-#The default_objsub_norm.sex is in the same folder as this file
-#The exported version of maskitextra.py is in the same folder as this file
-#Assumes the user wants the txt file in the directory that outputBase points toward(sci file root), not the directory in the txtLocationVariable [THIS SHOULD BE CHANGED]
+#Weight Files are IVM
+
+
 
 
 import sys
@@ -94,7 +94,7 @@ class singleClustorErr:
 		
 
 		
-	#creates the Normalized and Masked files, if passed true it will overwrite at these locations	
+	#creates the Normalized and Masked files
 	def generateNormal(self):
 		#first step is to run maskitextra.py
 		#this function takes the science and the weight files and generates a normalized image and a masked image at the locations passed into the function.
@@ -109,18 +109,23 @@ class singleClustorErr:
 		temp=os.system(myCom)  
 	
 	def generateObjSubMask(self):
+		#generate object subtracted image where all pixles without data are forced to be 0
 		quickmask.run(self.objectSubImageLocation,self.maskImageLocation,self.objectSubMaskImageLocation)
 
 	def setPixScale(self, scale):
+		#set pixle scale
 		self.pixScale = scale
 	
 	def setObjSex(self, name):
+		#set the SExtractor config file location
 		self.objsubSex = name
 		
 	def startEAA(self):
+		#runs empty apperture analysis
 		runEAA.run(self.objectSubMaskImageLocation,self.apprFluxName,self.pixScale)
 
 	def generateTxt(self):
+		#generates a txt file with the location of all the files created by EAA
 		#TODO: come up with a better solution
 		myCom = "ls $PWD/aperflux/"+self.apprFluxName+"_emptyaperflux_*.dat >"+self.outputTxtName
 		myComRM = "rm " +self.outputBase+self.outputTxtName
@@ -130,6 +135,7 @@ class singleClustorErr:
 		temp=os.system(myCom2) 
 		
 	def generateC(self):
+	#calculates cvalues from the data created in EAA
 		self.cvalues =  workingDepthSingle.run(self.scienceFileLocation,self.outputTxtLocation,self.pixScale,self.maskImageLocation,self.segmentationImageLocation,self.graphLocation)
 		
 
@@ -141,18 +147,19 @@ class singleClustorErr:
 		print("---Finished---")
 		
 	def preEAA(self):
+		#does all the processing required before EAA
 		self.generateNormal()		
 		self.generateObjSub()
 		self.generateObjSubMask()
 	
 	def postEAA(self):
+		#does all the processing required after EAA
 		self.generateTxt()
 		self.generateC() 
 		self.outputC()
 		
 	def genText(self):
-		#TODO: check for existing data
-		#creates the contents of the cvalue output file
+		#creates the contents of the cvalue output file by reading header image and the output of EAA
 		mySciFile=fits.open(myError.scienceFileLocation)
 		myHeader=mySciFile[0].header	
 		myOut  = ""
@@ -166,6 +173,7 @@ class singleClustorErr:
 		return myOut
 
 	def outputC(self):
+		#writes out the cvalues 
 		myFile = open(self.cvaluesLocation,"w")
 		myFile.write(self.genText())
 		myFile.close()
@@ -187,10 +195,10 @@ if(len(sys.argv)>3):
 	myError.setObjSex(sys.argv[3])
 	#if no default already set elsewhere
 
-myError.begin()
+#myError.begin()
 	
 #TESTING
-#myError.postEAA()
+myError.postEAA()
 #myError.scienceFileLocation = 0
 
 	

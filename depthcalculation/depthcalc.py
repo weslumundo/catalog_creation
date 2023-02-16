@@ -32,7 +32,7 @@ def depth(totfile,photvals):
     abmagzpt=-2.5*np.log10(temp_photflam) - 21.10 - 5.0*np.log10(temp_photplam) + 18.692
     abmag_depth=-2.5*np.log10(5.0*stdev_empty)+abmagzpt
     
-    return abmag_depth,stdev_empty
+    return abmag_depth,stdev_empty, avg_emptyflux
     
 def depthFlux(totfile,photvals):    
 	valsin=np.loadtxt(totfile,dtype=float,delimiter='\t',usecols=2,comments='#')

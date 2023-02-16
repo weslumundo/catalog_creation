@@ -2,6 +2,7 @@
 2.Make sure the science file name ends in "_sci.fits" and the weight file ends in "_wht.fits"
 3. Run the code in one of three ways (you probably want way 1)
 Note: pixel scale is the arcsec per pixel of your image
+Note: Weight File needs to be an IVM(Inverse Weight Map) format
 Way 1:
 python singleClusterError.py SCIENCE_FILE_LOCATION PIXEL_SCALE SOURCEEXTRACTOR_CONFIG_LOCATION
 

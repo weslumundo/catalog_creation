@@ -1,3 +1,33 @@
+'''
+Purpose
+
+Prosess the output of EAA
+
+Inputs
+sciFileLoc = location of science file
+
+txtFileLoc = location of a txt file containg the locations of EAA output
+
+myPixScale = pixel scale in arcsec/pixel
+
+maskFileLoc = location of mask file created by maskitextra in generateNormal 
+
+segFileLoc = location of segmentation image created by source extractor
+
+graphOutputLoc = location + basename of all graph outputs
+ie. /home/graphs/fig will put all graphs in folder /home/graphs and all graphs will have names like fig1.png or fig_sig.png
+
+Output
+GRAPHOUTPUTNAME#.png
+collection of graphs showing a histogram of fluxes and the corresponding gaussian overlayed
+
+GRAPHOUTPUTNAME_gaussian_analysis.png
+all gaussians normalized to 1 displayed on the same graph
+
+GRAPHOUTPUTNAME_sig.png
+Graph showing the average uncertianty for each apperture size and the polynomial described by the cvalues  
+
+'''
 #Goal of this file
 
 #convert Working_Depth.ipynb
@@ -22,6 +52,10 @@ import pylab as pl
 from IPython.display import IFrame
 import depthcalc
 import calculatin as calc
+from scipy.stats import norm
+
+def gaussian(x, mu, sig):
+	return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
 
 #Cell2 
 #this cell is mostly file declarations but singleCluster knows these so skip
@@ -40,19 +74,28 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc,graphOutputLoc):
 	
 	mags=[]
 	sigs=[]
+	means=[]
+	factor=[]
 	
-	
+	globalMax = 0
 	count = 0
+	
 	for x in filenames:
 	#    infile='../emptyApertureAnalysis_share/aperflux/'+str(x)
 		infile=str(x)
-		mag,sig=depthcalc.depth(infile,holdphots)
+		mag,sig,mean=depthcalc.depth(infile,holdphots)
 		mags.append(mag)
 		sigs.append(sig)
+		means.append(mean)
 		flux=depthcalc.depthFlux(infile,holdphots)
 		rangeval=max([-min(flux),max(flux)])
+		globalMax=max(globalMax,rangeval)
 		bins = np.linspace(-rangeval, rangeval, 100)
-		plt.hist(flux, bins, alpha=0.5, label='y')
+		(n, bins2, patches) = plt.hist(flux, bins.copy(), alpha=0.5, label='y')
+		plt.plot(bins.copy(),max(n)*gaussian(bins.copy(), mean, sig))
+		factor.append(max(n))
+		plt.xlim((-1,1))
+		plt.ylim((0,100))
 		plt.legend(loc='upper right')
 		plt.title('Fluxes in Apperatures of size '+str(aper[count]))
 		count+=1
@@ -61,6 +104,14 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc,graphOutputLoc):
 		plt.savefig(graphOutputLoc+str(count)+".png")
 		plt.clf()
 	
+	print("Generating Gaussians")	
+	#plt.legend(loc='upper right')
+	plt.title('Compilation of all Gausians')
+	bins = np.linspace(-globalMax, globalMax, 100)
+	for i in range(0,len(means)):
+		plt.plot(bins,gaussian(bins.copy(), means[i], sigs[i]))
+	plt.savefig(graphOutputLoc+"_gaus_analysis"+".png")
+	plt.clf()
     	
     	#calculate the RMS of the original science images
 	rmss,aper1=depthcalc.rmscalc(sciFileLoc,maskFileLoc,segFileLoc,apers,myPixScale)
