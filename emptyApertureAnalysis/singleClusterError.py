@@ -185,7 +185,7 @@ myError = singleClustorErr(sys.argv[1])
 
 #did user provid pixscale?
 if(len(sys.argv)>2):
-	myError.setPixScale(sys.argv[2])
+	myError.setPixScale(int(sys.argv[2]))
 else:
 	#if no set default
 	myError.setPixScale(0.1)
