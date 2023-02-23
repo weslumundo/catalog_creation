@@ -195,10 +195,10 @@ if(len(sys.argv)>3):
 	myError.setObjSex(sys.argv[3])
 	#if no default already set elsewhere
 
-#myError.begin()
+myError.begin()
 	
 #TESTING
-myError.postEAA()
+#myError.postEAA()
 #myError.scienceFileLocation = 0
 
 	
