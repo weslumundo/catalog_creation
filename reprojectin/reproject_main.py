@@ -1,4 +1,4 @@
-from reproj_kmj import Reproject
+from reproject_sub import Reproject
 import sys
 
 #takes user input file names
