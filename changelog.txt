@@ -22,6 +22,12 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(03/2/2023) -- Del
+ADDED
+	-difference_images subfolder and program to generate difference images in reprojectin 
+CHANGED
+	-reproj_exec.py and reproj_kmj.py renamed reproject_main.py and reproject_sub.py respectively
+
 (02/16/2023) -- Wesley
 	-singleClusterError.py updated Documentation
 	-maskitextra.py updated Documentation
