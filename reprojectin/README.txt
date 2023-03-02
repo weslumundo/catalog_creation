@@ -1,4 +1,4 @@
-Last Updated Nov. 29, 2022
+Last Updated March. 2, 2023
 
 PURPOSE
    Creates a new image by reprojecting a reference image onto a target image.
@@ -13,7 +13,7 @@ will only be as good as that information.  Therefore high astrometric accuracy
 is required in the FITS header.
 
 OUTPUT (more info needed)
-   Outputs a SCI and WHT file for the generated reprojection.  The output fits files
+   Outputs a SCI and WHT file for the generated reprojection. The output fits files
 have the new header information.
    
 NOTES
