@@ -22,6 +22,14 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(03/26/2023) -- Del
+CHANGED
+	-reproject_sub.py added error handling for incompatible/missing files
+	-reproject_main.py made WHT file reprojection optional
+	-reprojectin updated README
+REMOVED
+	-removed unneeded file percent_data_diff.fits.tar.gz
+
 (03/2/2023) -- Del
 ADDED
 	-difference_images subfolder and program to generate difference images in reprojectin 
