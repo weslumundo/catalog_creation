@@ -22,6 +22,9 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(04/05/2023) -- Wes
+CHANGED
+	-Convolutin_py3_v2.ipynb worked on outputting FWHM plots
 (03/26/2023) -- Del
 CHANGED
 	-reproject_sub.py added error handling for incompatible/missing files

@@ -55,7 +55,10 @@ import calculatin as calc
 from scipy.stats import norm
 
 def gaussian(x, mu, sig):
-	return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
+	#calculate simple gaussian
+	myret = np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
+	#return (myret/(sig*math.sqrt(2*math.pi)))
+	return myret
 
 #Cell2 
 #this cell is mostly file declarations but singleCluster knows these so skip
@@ -78,7 +81,7 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc,graphOutputLoc):
 	factor=[]
 	
 	globalMax = 0
-	count = 0
+	count = 0 #keep track of the number of figures made
 	
 	for x in filenames:
 	#    infile='../emptyApertureAnalysis_share/aperflux/'+str(x)
@@ -92,6 +95,7 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc,graphOutputLoc):
 		globalMax=max(globalMax,rangeval)
 		bins = np.linspace(-rangeval, rangeval, 100)
 		(n, bins2, patches) = plt.hist(flux, bins.copy(), alpha=0.5, label='y')
+		#TODO: normalize the gaussian
 		plt.plot(bins.copy(),max(n)*gaussian(bins.copy(), mean, sig))
 		factor.append(max(n))
 		plt.xlim((-1,1))
@@ -105,7 +109,7 @@ def run(sciFileLoc,txtFileLoc,myPixScale,maskFileLoc,segFileLoc,graphOutputLoc):
 		plt.clf()
 	
 	print("Generating Gaussians")	
-	#plt.legend(loc='upper right')
+	plt.legend(loc='upper right')
 	plt.title('Compilation of all Gausians')
 	bins = np.linspace(-globalMax, globalMax, 100)
 	for i in range(0,len(means)):
