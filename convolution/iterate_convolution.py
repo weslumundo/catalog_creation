@@ -52,7 +52,7 @@ def conv2Dgauss(fitsfilein,fwhm,i=0,ident='sept21_'):
 # another thing to run an input image through sewpy and produce a catalog
 def makecat(fits2,see=0.195,ps=0):
     #set up the parameters for sewpy, sexpath is machine dependent
-    sew=sewpy.SEW(params=["ALPHA_J2000","DELTA_J2000","FWHM_IMAGE","FLUX_APER","X_IMAGE","Y_IMAGE","FLAGS","CLASS_STAR"],config={"DETECT_MINAREA":5, "DETECT_THRESH":1.5,"ANALYSIS_THRESH":1.5,"PHOT_APERTURES":5,"SEEING_FWHM":see,"PIXEL SCALE":ps},sexpath="/home/wes/Astronomy/Software/anaconda3/bin/sex")
+    sew=sewpy.SEW(params=["ALPHA_J2000","DELTA_J2000","FWHM_IMAGE","FLUX_APER","FLUX_AUTO","X_IMAGE","Y_IMAGE","FLAGS","CLASS_STAR"],config={"DETECT_MINAREA":5, "DETECT_THRESH":1.5,"ANALYSIS_THRESH":1.5,"PHOT_APERTURES":5,"SEEING_FWHM":see,"PIXEL SCALE":ps},sexpath="/home/wes/Astronomy/Software/anaconda3/bin/sex")
     outcat=sew(fits2)
     return outcat["table"]
 
@@ -71,6 +71,8 @@ def calcfwhm(table1,star_limit=0.8,maglow=-2.0,maghigh=-0.5,fwhmlim=4.5,plottin=
         plt.plot(limittable['MAG'],limittable['FWHM_IMAGE'],'ro')
         plt.ylim(0.0,fwhmlim)
         plt.xlim(maglow,maghigh)
+        plt.xlabel('Psudomag')
+        plt.ylabel('FWHM_IMAGE')
         plt.show()
     print('Median FWHM_IMAGE',np.median(limittable['FWHM_IMAGE']),'Mean FWHM_IMAGE',np.mean(limittable['FWHM_IMAGE']))
     return limittable
