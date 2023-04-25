@@ -17,7 +17,7 @@ wht_file_ref = file_ref.replace('_sci.fits','_wht.fits')
 wht_file_targ = file_targ.replace('_sci.fits','_wht.fits')
 wht_file_out = file_out.replace('_sci.fits','_wht.fits')
 
-
+#Asks the user if they want WHT files reprojected
 VALID = 0
 while VALID == 0:
     user_response = input("Reproject associated WHT files? Y/N : ")
@@ -38,5 +38,23 @@ while VALID == 0:
     else:
         print("Invalid entry, please enter Y or N.")
 
-print("Exit")
+#asks the user if they want reference/output displayed 
+VALID = 0
+while VALID == 0:
+    user_response = input("Display reprojected and reference images as comparison? Y/N : ")
+    user_response = user_response.upper()
     
+    if user_response == "Y":
+    
+        #displays images using Reproject class method
+        r_sci.image_display()
+        VALID = 1
+        
+    elif user_response == "N":
+        VALID = 1
+    
+    else:
+        print("Invalid entry, please enter Y or N.")        
+
+        
+print("Exit")
