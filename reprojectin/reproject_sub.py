@@ -1,4 +1,5 @@
 from astropy.io import fits
+from reproject_display import Display
 from reproject import reproject_interp
 import os
 
@@ -27,6 +28,12 @@ class Reproject:
             
         if extension != '.fits': # checks if entered files are .fits type
             raise Exception ("File", item, "is an incompatible type. Please only enter .fits files.")
+    
+    def image_display(self): #creates Display object and inputs file names, then calls display method
+        
+        print("Plotting images... This may take a few minutes.")
+        disp = Display()
+        disp.image_display(self._img_ref, self._file_out)
     
     def reprojector(self):
         
