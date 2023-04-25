@@ -30,6 +30,7 @@ command reproject_main.py [target image] [reference image] [desired name of outp
 terminal, with the output name following the same naming convention (e.g. output_sci.fits).
    
 NOTES
-- build a flag into method that lets user optionally plot the reference and
-  target side-by-side to check effectiveness
-- push file for difference image creation
+- reference and output display still needs work
+- add example of how to run code here
+- have system ask user if wht file names are correct
+- update code comments!
