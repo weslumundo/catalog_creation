@@ -1,4 +1,4 @@
-Last Updated April 25, 2023
+Last Updated May 2, 2023
 
 PURPOSE
    Creates a new image by reprojecting a reference image onto a target image.
@@ -30,7 +30,7 @@ command reproject_main.py [target image] [reference image] [desired name of outp
 terminal, with the output name following the same naming convention (e.g. output_sci.fits).
    
 NOTES
-- reference and output display still needs work
+
 - add example of how to run code here
 - have system ask user if wht file names are correct
 - update code comments!
