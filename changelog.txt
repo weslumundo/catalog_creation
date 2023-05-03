@@ -22,6 +22,10 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(05/02/2023) -- Del
+CHANGED
+	-Updated reproject_display.py to show more images
+	
 (04/25/2023) -- Del
 ADDED
 	-reproject_display.py in reprojectin, optionally displays input/output 
@@ -30,6 +34,7 @@ CHANGED
 	-reproject_main.py updated to ask user if image display is desired
 	-reproject_sub.py now calls Display class from reproject_display.py
 	-reprojectin updated README
+	
 (04/05/2023) -- Wes
 CHANGED
 	-Convolutin_py3_v2.ipynb worked on outputting FWHM plots
