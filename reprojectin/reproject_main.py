@@ -9,7 +9,7 @@ file_out = sys.argv[3]
 #reproject with the sci files using Reproject class
 r_sci = Reproject(file_ref, file_targ, file_out)
 r_sci.file_check()
-#r_sci.reprojector()
+r_sci.reprojector()
 print("SCI files reprojected.")
 
 #locate the wht files by changing the string Python looks for
@@ -28,7 +28,7 @@ while VALID == 0:
         #reproject with the wht files using Reproject class
         r_wht = Reproject(wht_file_ref, wht_file_targ, wht_file_out)
         r_wht.file_check()
-        #r_wht.reprojector()
+        r_wht.reprojector()
         print("WHT files reprojected.")
         VALID = 1
         
@@ -46,7 +46,7 @@ while VALID == 0:
     
     if user_response == "Y":
     
-        #displays images using Reproject class method
+        #displays images using Display class method
         r_sci.image_display()
         VALID = 1
         
