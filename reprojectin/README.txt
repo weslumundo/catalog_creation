@@ -1,5 +1,5 @@
-Last Updated May 2, 2023
-
+Last Updated Dec. 4, 2023
+***See Reprojection Tutorial.ipynb for full instructions/exlpanation.***
 PURPOSE
    Creates a new image by reprojecting a reference image onto a target image.
 Currently using reproject_interp module.
@@ -21,7 +21,7 @@ DEPENDENCIES
 present or install them using pip before running reproject_main.py.
 
 ==============================
-TO USE
+TO USE 
    Place files to reproject in the same folder as reproject_main.py. Make sure 
 the files are not zipped and their names end in _sci.fits (e.g. example_sci.fits). If 
 you have WHT files to reproject, move them to the same location and use the same 
