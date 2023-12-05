@@ -22,6 +22,18 @@ entry at the top. All listed changes should include the name of the file
 where the change was made.
 
 ########## BEGIN CHANGELOG ##########
+(12/04/2023) -- Del
+ADDED
+	-Reprojection Tutorial.ipynb, notebook explaining current programs in
+	reprojectin file
+	-reproject_test.py, will eventually test difference between reproject
+	and reference 
+	-_test_sub.py, contains methods used in reproject_test.py
+CHANGED
+	-Renamed reproject_sub.py and reproject_display.py to _reproject_sub.py
+	and _reproject_display.py to show they contain internal methods
+	-Bug fixes in reproject_main.py, _reproject_sub.py, and _reproject_display.py
+
 (05/02/2023) -- Del
 CHANGED
 	-Updated reproject_display.py to show more images
