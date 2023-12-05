@@ -44,10 +44,9 @@ class Display:
             applied_shape = []
             for i in data.shape:
                 #divides image size in half to find center value, then writes new image bounds
-                
                 temp = i//2
-                applied_shape.append(temp-200)
-                applied_shape.append(temp)
+                applied_shape.append(temp-700)
+                applied_shape.append(temp-500)
                 
             #limits image to desired shape
             plt.xlim(applied_shape[0], applied_shape[1])
@@ -58,8 +57,8 @@ class Display:
         plt.grid(linewidth = 0.5)
         plt.clim(0,0.2)
     
-    def image_display(self, file_ref, file_out):
-
+    def _image_display(self, file_ref, file_out):
+        print(type(file_ref))
         fig = plt.figure(figsize=(10,10))
         
         ref_data = fits.getdata(file_ref)
