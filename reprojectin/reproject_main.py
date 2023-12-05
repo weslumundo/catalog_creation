@@ -1,4 +1,4 @@
-from reproject_sub import Reproject
+from _reproject_sub import Reproject
 import sys
 
 #takes user input file names
@@ -46,7 +46,7 @@ while VALID == 0:
     
     if user_response == "Y":
     
-        #displays images using Display class method
+        #displays images using Reproject class method
         r_sci.image_display()
         VALID = 1
         
@@ -58,3 +58,4 @@ while VALID == 0:
 
         
 print("Exit")
+    
